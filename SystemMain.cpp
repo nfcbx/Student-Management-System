@@ -9,50 +9,50 @@
 
 using namespace std;
 
-char UserName[15],UserPassword[15];//ÓÃ»§ÊäÈëµÄÓÃ»§Ãû¼°ÃÜÂë
-char realName[15],realPassword[15];//ÕıÈ·µÄÓÃ»§Ãû¼°ÃÜÂë
-char defaultName[15]="admin",defaultPassword[15]="admin";//Ä¬ÈÏÓÃ»§Ãû¼°ÃÜÂë
-bool isChangePassword=false;//¼ÇÂ¼ÊÇ·ñĞŞ¸ÄÃÜÂë
-bool isChangeInformation=false;//¼ÇÂ¼ÊÇ·ñĞŞ¸ÄÑ§ÉúĞÅÏ¢
-int changeTimes=0;//¼ÇÂ¼ĞŞ¸ÄÃÜÂëÊ±ÃÜÂë´íÎóµÄ´ÎÊı
-int stu_cnt=0;//Ñ§Éú×ÜÊı
-char *oldFileName,*newFileName;//Êı¾İÎÄ¼şµÄ¾ø¶ÔµØÖ·
+char UserName[15],UserPassword[15];//ç”¨æˆ·è¾“å…¥çš„ç”¨æˆ·ååŠå¯†ç 
+char realName[15],realPassword[15];//æ­£ç¡®çš„ç”¨æˆ·ååŠå¯†ç 
+char defaultName[15]="admin",defaultPassword[15]="admin";//é»˜è®¤ç”¨æˆ·ååŠå¯†ç 
+bool isChangePassword=false;//è®°å½•æ˜¯å¦ä¿®æ”¹å¯†ç 
+bool isChangeInformation=false;//è®°å½•æ˜¯å¦ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
+int changeTimes=0;//è®°å½•ä¿®æ”¹å¯†ç æ—¶å¯†ç é”™è¯¯çš„æ¬¡æ•°
+int stu_cnt=0;//å­¦ç”Ÿæ€»æ•°
+char *oldFileName,*newFileName;//æ•°æ®æ–‡ä»¶çš„ç»å¯¹åœ°å€
 
-struct Student  //³É¼¨½á¹¹Ìå
+struct Student  //æˆç»©ç»“æ„ä½“
 {
-    char name[9];//ĞÕÃû
-    char num[9];//Ñ§ºÅ
-    int age;//ÄêÁä
-    char sex[1];//ĞÔ±ğ
-    int Math;//ÊıÑ§
-    int English;//Ó¢Óï
-    int Program;//¼ÆËã»ú
-    int sum;//×Ü·Ö
+    char name[9];//å§“å
+    char num[9];//å­¦å·
+    int age;//å¹´é¾„
+    char sex[1];//æ€§åˆ«
+    int Math;//æ•°å­¦
+    int English;//è‹±è¯­
+    int Program;//è®¡ç®—æœº
+    int sum;//æ€»åˆ†
 } s;
 
-void Init();//³õÊ¼»¯µÇÂ¼Ò³Ãæ
-void readFileAdd();//¶ÁÈ¡Êı¾İÎÄ¼şµÄ¾ø¶ÔÄ¿Â¼
-void readStudent();//¶ÁÈ¡Ñ§ÉúÊıÄ¿
-void StuManage();//Ñ§ÉúĞÅÏ¢¹ÜÀíÏµÍ³ ¹ÜÀí¶Ë×Ö·ûÍ¼±ê
-void Login();//µÇÂ¼ÏµÍ³
-int isLogin();//ÅĞ¶ÏÊÇ·ñµÇÂ¼³É¹¦
-int MenuSelect();//²Ëµ¥Ñ¡Ôñ
-void MainMenu();//Ö÷²Ëµ¥½çÃæ
-void Head();//Ñ§ÉúĞÅÏ¢¹ÜÀíÏµÍ³×Ö·ûÍ¼±ê
-void printfError();//ÏÔÊ¾´íÎóĞÅÏ¢
-void changePassword();//ĞŞ¸ÄÃÜÂë
-void scanfInformation();//ÊäÈëÑ§ÉúĞÅÏ¢
-void Quit();//ÍË³ö³ÌĞò»òÖØĞÂ½øÈëÖ÷²Ëµ¥
-void readfile();//¶ÁÈëÎÄ¼ş
-void writefile();//Ğ´³öÎÄ¼ş
-void Change_Information();//¸üĞÂ
-void Delete_Information();//É¾³ı
-void Show_Information();//Êä³öÑ§ÉúĞÅÏ¢
-void Add_Information();//Ìí¼ÓÑ§ÉúĞÅÏ¢
-void Search_Information();//²éÑ¯Ñ§ÉúĞÅÏ¢
-bool Find_Information();//²éÕÒÑ§ÉúĞÅÏ¢
-void Sord_Information();//ÅÅĞòÑ§ÉúĞÅÏ¢
-void Show_Sorted(list<Student>& ss);//ÏÔÊ¾ÅÅĞòºóµÄÑ§ÉúĞÅÏ¢
+void Init();//åˆå§‹åŒ–ç™»å½•é¡µé¢
+void readFileAdd();//è¯»å–æ•°æ®æ–‡ä»¶çš„ç»å¯¹ç›®å½•
+void readStudent();//è¯»å–å­¦ç”Ÿæ•°ç›®
+void StuManage();//å­¦ç”Ÿä¿¡æ¯ç®¡ç†ç³»ç»Ÿ ç®¡ç†ç«¯å­—ç¬¦å›¾æ ‡
+void Login();//ç™»å½•ç³»ç»Ÿ
+int isLogin();//åˆ¤æ–­æ˜¯å¦ç™»å½•æˆåŠŸ
+int MenuSelect();//èœå•é€‰æ‹©
+void MainMenu();//ä¸»èœå•ç•Œé¢
+void Head();//å­¦ç”Ÿä¿¡æ¯ç®¡ç†ç³»ç»Ÿå­—ç¬¦å›¾æ ‡
+void printfError();//æ˜¾ç¤ºé”™è¯¯ä¿¡æ¯
+void changePassword();//ä¿®æ”¹å¯†ç 
+void scanfInformation();//è¾“å…¥å­¦ç”Ÿä¿¡æ¯
+void Quit();//é€€å‡ºç¨‹åºæˆ–é‡æ–°è¿›å…¥ä¸»èœå•
+void readfile();//è¯»å…¥æ–‡ä»¶
+void writefile();//å†™å‡ºæ–‡ä»¶
+void Change_Information();//æ›´æ–°
+void Delete_Information();//åˆ é™¤
+void Show_Information();//è¾“å‡ºå­¦ç”Ÿä¿¡æ¯
+void Add_Information();//æ·»åŠ å­¦ç”Ÿä¿¡æ¯
+void Search_Information();//æŸ¥è¯¢å­¦ç”Ÿä¿¡æ¯
+bool Find_Information();//æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯
+void Sord_Information();//æ’åºå­¦ç”Ÿä¿¡æ¯
+void Show_Sorted(list<Student>& ss);//æ˜¾ç¤ºæ’åºåçš„å­¦ç”Ÿä¿¡æ¯
 
 typedef enum Menu
 {
@@ -61,17 +61,17 @@ typedef enum Menu
 
 
 
-//³õÊ¼»¯µÇÂ¼Ò³Ãæ
+//åˆå§‹åŒ–ç™»å½•é¡µé¢
 void Init()
 {
     readFileAdd();
     readStudent();
 
-    system("mode con cols=120 lines=40");//³õÊ¼»¯»º³åÇø´óĞ¡
-    printf("»¶Ó­Ê¹ÓÃ±¾ÏµÍ³£¡\n");
+    system("mode con cols=120 lines=40");//åˆå§‹åŒ–ç¼“å†²åŒºå¤§å°
+    printf("æ¬¢è¿ä½¿ç”¨æœ¬ç³»ç»Ÿï¼\n");
     int i;
     printf("\n\n\n\n\n\n\n\n\t\t\t\t\t");
-    char heihei[] = { "¼´½«½øÈëÑ§Éú¹ÜÀíÏµÍ³..." };
+    char heihei[] = { "å³å°†è¿›å…¥å­¦ç”Ÿç®¡ç†ç³»ç»Ÿ..." };
     for (i = 0; i < strlen(heihei); i++)
     {
         printf("%c", heihei[i]);
@@ -81,11 +81,11 @@ void Init()
     Login();
 }
 
-void readFileAdd()//¶ÁÈ¡Êı¾İÎÄ¼şµÄ¾ø¶ÔÄ¿Â¼
+void readFileAdd()//è¯»å–æ•°æ®æ–‡ä»¶çš„ç»å¯¹ç›®å½•
 {
     TCHAR _szPath[MAX_PATH + 1]= {0};
     GetModuleFileName(NULL, _szPath, MAX_PATH);
-    (_tcsrchr(_szPath, _T('\\')))[1] = 0;//É¾³ıÎÄ¼şÃû£¬Ö»»ñµÃÂ·¾¶ ×Ö´®
+    (_tcsrchr(_szPath, _T('\\')))[1] = 0;//åˆ é™¤æ–‡ä»¶åï¼Œåªè·å¾—è·¯å¾„ å­—ä¸²
     string strPath;
     for (int n=0; _szPath[n]; n++)
     {
@@ -110,7 +110,7 @@ void readFileAdd()//¶ÁÈ¡Êı¾İÎÄ¼şµÄ¾ø¶ÔÄ¿Â¼
     strcpy(newFileName, newFilePath.c_str());
 
 }
-//¶ÁÈ¡Ñ§ÉúÊıÄ¿
+//è¯»å–å­¦ç”Ÿæ•°ç›®
 void readStudent()
 {
 
@@ -121,33 +121,33 @@ void readStudent()
     fin.close();
 }
 
-//Ñ§ÉúĞÅÏ¢¹ÜÀíÏµÍ³×Ö·ûÍ¼±ê
+//å­¦ç”Ÿä¿¡æ¯ç®¡ç†ç³»ç»Ÿå­—ç¬¦å›¾æ ‡
 void Head()
 {
     printf("\n");
-    printf("\t\t\t\t\t¨q ş]%¨r                   ¨q ```¨r  \n");
-    printf("\t\t\t\t\t(@^o^@) Ñ§ÉúĞÅÏ¢¹ÜÀíÏµÍ³ (¡Ğ:¡Ğ)\n");
+    printf("\t\t\t\t\tâ•­ âºŒ%â•®                   â•­ ```â•®  \n");
+    printf("\t\t\t\t\t(@^o^@) å­¦ç”Ÿä¿¡æ¯ç®¡ç†ç³»ç»Ÿ (âŒ’:âŒ’)\n");
     printf("\t\t\t\t\t(~):(~)                  (~)v(~) \n");
     printf("\n\n\n");
 }
 
-//Ñ§ÉúĞÅÏ¢¹ÜÀíÏµÍ³ ¹ÜÀí¶Ë×Ö·ûÍ¼±ê
+//å­¦ç”Ÿä¿¡æ¯ç®¡ç†ç³»ç»Ÿ ç®¡ç†ç«¯å­—ç¬¦å›¾æ ‡
 void StuManage()
 {
     printf("\n");
-    printf("\t\t\t\t\t¨q ş]%¨r                           ¨q ```¨r  \n");
-    printf("\t\t\t\t\t(@^o^@) Ñ§ÉúĞÅÏ¢¹ÜÀíÏµÍ³   ¹ÜÀí¶Ë(¡Ğ:¡Ğ)\n");
+    printf("\t\t\t\t\tâ•­ âºŒ%â•®                           â•­ ```â•®  \n");
+    printf("\t\t\t\t\t(@^o^@) å­¦ç”Ÿä¿¡æ¯ç®¡ç†ç³»ç»Ÿ   ç®¡ç†ç«¯(âŒ’:âŒ’)\n");
     printf("\t\t\t\t\t(~):(~)                          (~)v(~) \n");
     printf("\n\n\n");
 }
 
-//ÏÔÊ¾´íÎóĞÅÏ¢
+//æ˜¾ç¤ºé”™è¯¯ä¿¡æ¯
 void printfError()
 {
-    printf("\n\t\t\t\t\t\t¸ñÊ½´íÎó£¡ÇëÖØĞÂÊäÈë£º");
+    printf("\n\t\t\t\t\t\tæ ¼å¼é”™è¯¯ï¼è¯·é‡æ–°è¾“å…¥ï¼š");
 }
 
-//µÇÂ¼ÏµÍ³
+//ç™»å½•ç³»ç»Ÿ
 void Login()
 {
     StuManage();
@@ -157,23 +157,23 @@ void Login()
         printf("%c", xing[i]);
         Sleep(5);
     }
-    printf("\n\n\t\t\t\t\t\tÇëÊäÈëÄúµÄÕËºÅÃÜÂë:\n\n\n\n\t\t\t\t\t\tÕËºÅ:");
+    printf("\n\n\t\t\t\t\t\tè¯·è¾“å…¥æ‚¨çš„è´¦å·å¯†ç :\n\n\n\n\t\t\t\t\t\tè´¦å·:");
     cin>>UserName;
-    printf("\n\n\t\t\t\t\t\tÃÜÂë:");
+    printf("\n\n\t\t\t\t\t\tå¯†ç :");
     cin>>UserPassword;
 
 }
 
-//ÅĞ¶ÏÊÇ·ñµÇÂ¼³É¹¦
+//åˆ¤æ–­æ˜¯å¦ç™»å½•æˆåŠŸ
 int isLogin()
 {
-    int times = 0;	//ÃÜÂëÊäÈë´ÎÊı
+    int times = 0;	//å¯†ç è¾“å…¥æ¬¡æ•°
 
-    ifstream passIn;//ÊäÈëÁ÷
-    passIn.open("password.dat",ios::in|ios::binary);//ÎªÊäÈë´ò¿ªpassword.txt
-    if(!passIn.is_open())//Èç¹û´ò¿ªÊ§°Ü£¬Ôò´´½¨ÎÄ¼ş
+    ifstream passIn;//è¾“å…¥æµ
+    passIn.open("password.dat",ios::in|ios::binary);//ä¸ºè¾“å…¥æ‰“å¼€password.txt
+    if(!passIn.is_open())//å¦‚æœæ‰“å¼€å¤±è´¥ï¼Œåˆ™åˆ›å»ºæ–‡ä»¶
     {
-        ofstream passOut;//Êä³öÁ÷
+        ofstream passOut;//è¾“å‡ºæµ
         passOut.open("password.dat",ios::binary);
         passOut.write(defaultName,sizeof(defaultName));
         passOut.write(defaultPassword,sizeof(defaultPassword));
@@ -186,13 +186,13 @@ int isLogin()
 
     while (strcmp(UserName,realName)||strcmp(UserPassword,realPassword))
     {
-        times++;	//ÃÜÂëÊäÈë´íÎó times++
+        times++;	//å¯†ç è¾“å…¥é”™è¯¯ times++
         if (times > 3)
         {
-            printf("\n\n\n\n\t\t\t\tÕËºÅ»òÃÜÂëÊäÈë´íÎóÀÛ¼Æ´ïµ½%d´Î£¬ÏµÍ³½«ÓÚ3Ãëºó¹Ø±Õ", times);
+            printf("\n\n\n\n\t\t\t\tè´¦å·æˆ–å¯†ç è¾“å…¥é”™è¯¯ç´¯è®¡è¾¾åˆ°%dæ¬¡ï¼Œç³»ç»Ÿå°†äº3ç§’åå…³é—­", times);
             Sleep(1000);
             system("cls");
-            char shutdown[] = { "ÏµÍ³½«ÓÚ%dÃëºó¹Ø±Õ..." };
+            char shutdown[] = { "ç³»ç»Ÿå°†äº%dç§’åå…³é—­..." };
             for (int i = 0; i < 3; i++)
             {
                 printf(shutdown, 3 - i);
@@ -201,7 +201,7 @@ int isLogin()
             }
             exit(0);
         }
-        printf("\n\n\n\n\t\t\t\tÕËºÅ»òÃÜÂëÊäÈë´íÎó,Äã»¹ÓĞ%d´ÎµÇÂ¼»ú»á£¬°´ÈÎÒâ¼üÖØĞÂµÇÂ¼...", 4 - times);
+        printf("\n\n\n\n\t\t\t\tè´¦å·æˆ–å¯†ç è¾“å…¥é”™è¯¯,ä½ è¿˜æœ‰%dæ¬¡ç™»å½•æœºä¼šï¼ŒæŒ‰ä»»æ„é”®é‡æ–°ç™»å½•...", 4 - times);
         getch();
         system("cls");
         Login();
@@ -210,32 +210,32 @@ int isLogin()
 
 }
 
-//ĞŞ¸ÄÃÜÂë
+//ä¿®æ”¹å¯†ç 
 void changePassword()
 {
     char tempName[15],tempPassword[15],oldPassword[15];
 
     Head();
-    printf("\t\t\t**********************ĞŞ¸ÄÓÃ»§Ãû¼°ÃÜÂë*********************\n\n\n");
-    cout<<"\t\t\tÄúµÄÓÃ»§ÃûÎª£º"<<realName;
-    cout<<endl<<"\n\t\t\tÒª¼ÌĞø²Ù×÷£¬ÇëÊ×ÏÈÑéÖ¤µÇÂ¼ÕßÊÇÄú±¾ÈË£¬ÇëÊäÈëÄúµÄ¾ÉÃÜÂë£º";
+    printf("\t\t\t**********************ä¿®æ”¹ç”¨æˆ·ååŠå¯†ç *********************\n\n\n");
+    cout<<"\t\t\tæ‚¨çš„ç”¨æˆ·åä¸ºï¼š"<<realName;
+    cout<<endl<<"\n\t\t\tè¦ç»§ç»­æ“ä½œï¼Œè¯·é¦–å…ˆéªŒè¯ç™»å½•è€…æ˜¯æ‚¨æœ¬äººï¼Œè¯·è¾“å…¥æ‚¨çš„æ—§å¯†ç ï¼š";
     cin>>oldPassword;
 
-    if(strcmp(oldPassword,realPassword)==0)//ÃÜÂëÕıÈ·
+    if(strcmp(oldPassword,realPassword)==0)//å¯†ç æ­£ç¡®
     {
 
-        cout<<"\n\t\t\tÇëÊäÈëÄúµÄĞÂÓÃ»§Ãû£¨²»¶àÓÚ14Î»£©:";
+        cout<<"\n\t\t\tè¯·è¾“å…¥æ‚¨çš„æ–°ç”¨æˆ·åï¼ˆä¸å¤šäº14ä½ï¼‰:";
         cin>>tempName;
         while(strlen(tempName)>14)
         {
-            printf("\n\t\t\t¸ñÊ½´íÎó£¡ÇëÖØĞÂÊäÈë£º");
+            printf("\n\t\t\tæ ¼å¼é”™è¯¯ï¼è¯·é‡æ–°è¾“å…¥ï¼š");
             cin>>tempName;
         }
-        cout<<"\n\t\t\tÇëÊäÈëÄúµÄĞÂÃÜÂë£¨²»¶àÓÚ14Î»£©:";
+        cout<<"\n\t\t\tè¯·è¾“å…¥æ‚¨çš„æ–°å¯†ç ï¼ˆä¸å¤šäº14ä½ï¼‰:";
         cin>>tempPassword;
         while(strlen(tempPassword)>14)
         {
-            printf("\n\t\t\t¸ñÊ½´íÎó£¡ÇëÖØĞÂÊäÈë£º");
+            printf("\n\t\t\tæ ¼å¼é”™è¯¯ï¼è¯·é‡æ–°è¾“å…¥ï¼š");
             cin>>tempPassword;
         }
 
@@ -248,17 +248,17 @@ void changePassword()
             passOut.write(tempPassword,sizeof(tempPassword));
         }
         passOut.close();
-        cout<<endl<<"\t\t\t¹§Ï²Äú£¬ĞŞ¸Ä³É¹¦£¬ÇëÀÎ¼ÇÄúµÄÓÃ»§Ãû¼°ÃÜÂë~";
+        cout<<endl<<"\t\t\tæ­å–œæ‚¨ï¼Œä¿®æ”¹æˆåŠŸï¼Œè¯·ç‰¢è®°æ‚¨çš„ç”¨æˆ·ååŠå¯†ç ~";
     }
-    while(strcmp(oldPassword,realPassword))//ÃÜÂë´íÎó
+    while(strcmp(oldPassword,realPassword))//å¯†ç é”™è¯¯
     {
         changeTimes++;
         if (changeTimes > 3)
         {
-            printf("\n\n\n\n\t\t\tÕËºÅ»òÃÜÂëÊäÈë´íÎóÀÛ¼Æ´ïµ½%d´Î£¬ÏµÍ³½«ÓÚ3Ãëºó¹Ø±Õ", changeTimes);
+            printf("\n\n\n\n\t\t\tè´¦å·æˆ–å¯†ç è¾“å…¥é”™è¯¯ç´¯è®¡è¾¾åˆ°%dæ¬¡ï¼Œç³»ç»Ÿå°†äº3ç§’åå…³é—­", changeTimes);
             Sleep(3000);
             system("cls");
-            char shutdown[] = { "ÏµÍ³½«ÓÚ%dÃëºó¹Ø±Õ..." };
+            char shutdown[] = { "ç³»ç»Ÿå°†äº%dç§’åå…³é—­..." };
             for (int i = 0; i < 3; i++)
             {
                 printf(shutdown, 3 - i);
@@ -267,7 +267,7 @@ void changePassword()
             }
             exit(0);
         }
-        printf("\n\n\n\t\t\tÕËºÅ»òÃÜÂëÊäÈë´íÎó,Äã»¹ÓĞ%d´ÎµÇÂ¼»ú»á£¬°´ÈÎÒâ¼üÖØĞÂµÇÂ¼...", 4 - changeTimes);
+        printf("\n\n\n\t\t\tè´¦å·æˆ–å¯†ç è¾“å…¥é”™è¯¯,ä½ è¿˜æœ‰%dæ¬¡ç™»å½•æœºä¼šï¼ŒæŒ‰ä»»æ„é”®é‡æ–°ç™»å½•...", 4 - changeTimes);
         getch();
         system("cls");
         changePassword();
@@ -275,7 +275,7 @@ void changePassword()
     Quit();
 }
 
-//ÍË³ö³ÌĞò»òÖØĞÂ½øÈëÖ÷²Ëµ¥
+//é€€å‡ºç¨‹åºæˆ–é‡æ–°è¿›å…¥ä¸»èœå•
 void Quit()
 {
     char ch;
@@ -285,30 +285,30 @@ void Quit()
         printf("* ");
         Sleep(10);
     }
-    printf("\n\n\t\t\t\tÒª·µ»ØµÇÂ¼½çÃæ°´ÈÎÒâ¼ü\t\tÍË³ö²¢±£´æÊı¾İÇë°´Esc¼ü\n");
+    printf("\n\n\t\t\t\tè¦è¿”å›ç™»å½•ç•Œé¢æŒ‰ä»»æ„é”®\t\té€€å‡ºå¹¶ä¿å­˜æ•°æ®è¯·æŒ‰Escé”®\n");
     ch = getch();
-    if (ch == 0x1b)	//esc¼ü°´ÏÂ
+    if (ch == 0x1b)	//escé”®æŒ‰ä¸‹
     {
 //		SaveData();
         _Exit(0);
     }
-    //ÖØĞÂ½øÈëÖ÷²Ëµ¥
+    //é‡æ–°è¿›å…¥ä¸»èœå•
     MainMenu();
 }
 
-//Ğ´³öÎÄ¼ş
+//å†™å‡ºæ–‡ä»¶
 void writefile()
 {
-    ofstream fout("stu.dat",ios::binary|ios::app);//Êä³öÁ÷¶ÔÏó
+    ofstream fout("stu.dat",ios::binary|ios::app);//è¾“å‡ºæµå¯¹è±¡
 //    fout.open("stu.dat",ios::binary|ios::ate);
     fout.write((char*)&s, sizeof(s));
     fout.close();
 }
 
-//¶ÁÈëÎÄ¼ş
+//è¯»å…¥æ–‡ä»¶
 void readfile()
 {
-    ifstream fin("stu.dat",ios::in|ios::binary);//¶ÁÈëÁ÷¶ÔÏó
+    ifstream fin("stu.dat",ios::in|ios::binary);//è¯»å…¥æµå¯¹è±¡
     while(fin.read((char*)&s,sizeof(s)))
     {
         printf("\t\t\t");
@@ -317,10 +317,10 @@ void readfile()
     fin.close();
 }
 
-//²éÕÒÑ§ÉúĞÅÏ¢
+//æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯
 bool Find_Information(char *id)
 {
-    ifstream fin("stu.dat",ios::in|ios::binary);//¶ÁÈëÁ÷¶ÔÏó
+    ifstream fin("stu.dat",ios::in|ios::binary);//è¯»å…¥æµå¯¹è±¡
     while(fin.read((char*)&s,sizeof(s)))
     {
         if(strcmp(s.num,id)==0)
@@ -331,12 +331,12 @@ bool Find_Information(char *id)
     fin.close();
     return false;
 }
-//ÊäÈëÑ§ÉúĞÅÏ¢
+//è¾“å…¥å­¦ç”Ÿä¿¡æ¯
 void scanfInformation()
 {
     char id[9];
     char _name[9];
-    printf("\n\t\t\t\t\t\tÑ§ºÅ£¨²»³¬¹ı9¸ö×Ö·û£©:");
+    printf("\n\t\t\t\t\t\tå­¦å·ï¼ˆä¸è¶…è¿‡9ä¸ªå­—ç¬¦ï¼‰:");
     if(stu_cnt==0)
     {
         cin>>s.num;
@@ -351,7 +351,7 @@ void scanfInformation()
         cin>>id;
         while(Find_Information(id)&&isChangeInformation==false)
         {
-            printf("\n\t\t\t\t\t\tÒÑ´æÔÚ¸ÃÑ§ÉúµÄĞÅÏ¢£¡ÇëÖØĞÂÊäÈë£º");
+            printf("\n\t\t\t\t\t\tå·²å­˜åœ¨è¯¥å­¦ç”Ÿçš„ä¿¡æ¯ï¼è¯·é‡æ–°è¾“å…¥ï¼š");
             cin>>id;
             if(strlen(id)>9)
             {
@@ -370,7 +370,7 @@ void scanfInformation()
         strncpy(s.num,id,9);
     }
 
-    printf("\n\t\t\t\t\t\tĞÕÃû£¨²»³¬¹ı9¸ö×Ö·û£©:");
+    printf("\n\t\t\t\t\t\tå§“åï¼ˆä¸è¶…è¿‡9ä¸ªå­—ç¬¦ï¼‰:");
     cin>>_name;
     while(strlen(_name)>9)
     {
@@ -379,7 +379,7 @@ void scanfInformation()
     }
     strncpy(s.name,_name,9);
 
-    cout<<"\n\t\t\t\t\t\tÊäÈëÄêÁä£º";
+    cout<<"\n\t\t\t\t\t\tè¾“å…¥å¹´é¾„ï¼š";
     cin>>s.age;
     while(s.age<0||s.age>100)
     {
@@ -387,7 +387,7 @@ void scanfInformation()
         cin>>s.age;
     }
 
-    cout<<"\n\t\t\t\t\t\tÊäÈëĞÔ±ğ£¨MÎªÄĞĞÔ£¬FÎªÅ®ĞÔ£©£º";
+    cout<<"\n\t\t\t\t\t\tè¾“å…¥æ€§åˆ«ï¼ˆMä¸ºç”·æ€§ï¼ŒFä¸ºå¥³æ€§ï¼‰ï¼š";
     char sex[1];
     cin>>sex;
     while((sex[0]!='M'&&sex[0]!='m'&&sex[0]!='F'&&sex[0]!='f')||strlen(sex)!=1)
@@ -401,7 +401,7 @@ void scanfInformation()
     if(s.sex[0]='f')
         s.sex[0]='F';
 
-    printf("\n\t\t\t\t\t\t¸ßµÈÊıÑ§£¨ÕûÊı°Ù·ÖÖÆ£©:");
+    printf("\n\t\t\t\t\t\té«˜ç­‰æ•°å­¦ï¼ˆæ•´æ•°ç™¾åˆ†åˆ¶ï¼‰:");
     cin>>s.Math;
     while(s.Math<0||s.Math>100)
     {
@@ -409,7 +409,7 @@ void scanfInformation()
         cin>>s.Math;
     }
 
-    printf("\n\t\t\t\t\t\t´óÑ§Ó¢Óï£¨ÕûÊı°Ù·ÖÖÆ£©:");
+    printf("\n\t\t\t\t\t\tå¤§å­¦è‹±è¯­ï¼ˆæ•´æ•°ç™¾åˆ†åˆ¶ï¼‰:");
     cin>>s.English;
     while(s.English<0||s.English>100)
     {
@@ -417,7 +417,7 @@ void scanfInformation()
         cin>>s.English;
     }
 
-    printf("\n\t\t\t\t\t\t³ÌĞòÉè¼Æ£¨ÕûÊı°Ù·ÖÖÆ£©:");
+    printf("\n\t\t\t\t\t\tç¨‹åºè®¾è®¡ï¼ˆæ•´æ•°ç™¾åˆ†åˆ¶ï¼‰:");
     cin>>s.Program;
     while(s.Program<0||s.Program>100)
     {
@@ -426,9 +426,9 @@ void scanfInformation()
     }
 
     s.sum=s.Math+s.English+s.Program;
-    printf("\n\t\t\t\t\t\t¸ÃÑ§ÉúµÄ×Ü·ÖÎª£º%d",s.sum);
+    printf("\n\t\t\t\t\t\tè¯¥å­¦ç”Ÿçš„æ€»åˆ†ä¸ºï¼š%d",s.sum);
 }
-//Ìí¼ÓÑ§ÉúĞÅÏ¢
+//æ·»åŠ å­¦ç”Ÿä¿¡æ¯
 void Add_Information()
 {
     char n;
@@ -436,36 +436,36 @@ void Add_Information()
     {
         system("cls");
         Head();
-        printf("\t\t\t\t\t\tÌí¼ÓÑ§ÉúĞÅÏ¢:\n\n\n\n");
+        printf("\t\t\t\t\t\tæ·»åŠ å­¦ç”Ÿä¿¡æ¯:\n\n\n\n");
         scanfInformation();
         writefile();
         stu_cnt++;
-        printf("\n\n\t\t\t\t\t\t°´Y¼ÌĞø£¬°´ÈÎÒâ¼ü·µ»Ø¡£");
+        printf("\n\n\t\t\t\t\t\tæŒ‰Yç»§ç»­ï¼ŒæŒ‰ä»»æ„é”®è¿”å›ã€‚");
         n=getch();
     }
     while(n=='Y'||n=='y');
     Quit();
 }
 
-//Êä³öÑ§ÉúĞÅÏ¢
+//è¾“å‡ºå­¦ç”Ÿä¿¡æ¯
 void Show_Information()
 {
     Head();
     if(stu_cnt==0)
     {
-        printf("\t\t\t**********************±¾Ãûµ¥¹²ÓĞ %d ÃûÑ§Éú*********************\n\n\n", stu_cnt);
-        printf("\t\t\tÔİÎŞÑ§ÉúĞÅÏ¢£¡\n");
+        printf("\t\t\t**********************æœ¬åå•å…±æœ‰ %d åå­¦ç”Ÿ*********************\n\n\n", stu_cnt);
+        printf("\t\t\tæš‚æ— å­¦ç”Ÿä¿¡æ¯ï¼\n");
     }
     else
     {
-        printf("\t\t\t**********************±¾Ãûµ¥¹²ÓĞ %d ÃûÑ§Éú*********************\n\n\n", stu_cnt);
-        printf("\t\t\tÑ§ºÅ\t  ĞÕÃû\t   ÄêÁä\t  ĞÔ±ğ\t  ¸ßÊı\t  Ó¢Óï\t  ³ÌĞòÉè¼Æ\t×Ü·Ö\n\n");
+        printf("\t\t\t**********************æœ¬åå•å…±æœ‰ %d åå­¦ç”Ÿ*********************\n\n\n", stu_cnt);
+        printf("\t\t\tå­¦å·\t  å§“å\t   å¹´é¾„\t  æ€§åˆ«\t  é«˜æ•°\t  è‹±è¯­\t  ç¨‹åºè®¾è®¡\tæ€»åˆ†\n\n");
         readfile();
     }
     Quit();
 }
 
-//²éÑ¯Ñ§ÉúĞÅÏ¢
+//æŸ¥è¯¢å­¦ç”Ÿä¿¡æ¯
 void Search_Information()
 {
     char n;
@@ -474,25 +474,25 @@ void Search_Information()
         system("cls");
         Head();
         char id[9];
-        printf("\t\t\t\t\t\t²éÑ¯Ñ§ÉúĞÅÏ¢£º\n\n");
-        printf("\t\t\t\t\t\tÇëÊäÈëÑ§ÉúÑ§ºÅ£º");
+        printf("\t\t\t\t\t\tæŸ¥è¯¢å­¦ç”Ÿä¿¡æ¯ï¼š\n\n");
+        printf("\t\t\t\t\t\tè¯·è¾“å…¥å­¦ç”Ÿå­¦å·ï¼š");
         cin>>id;
         if(Find_Information(id))
         {
-            printf("\n\n\n\t\t\t\t\t\tÒª²éÑ¯µÄÑ§ÉúĞÅÏ¢...\n\n");
-            printf("\t\t\tÑ§ºÅ\t  ĞÕÃû\t   ÄêÁä\t  ĞÔ±ğ\t  ¸ßÊı\t  Ó¢Óï\t  ³ÌĞòÉè¼Æ\t×Ü·Ö\n\n");
+            printf("\n\n\n\t\t\t\t\t\tè¦æŸ¥è¯¢çš„å­¦ç”Ÿä¿¡æ¯...\n\n");
+            printf("\t\t\tå­¦å·\t  å§“å\t   å¹´é¾„\t  æ€§åˆ«\t  é«˜æ•°\t  è‹±è¯­\t  ç¨‹åºè®¾è®¡\tæ€»åˆ†\n\n");
             printf("\t\t\t");
             printf("%-10s%-10s%-8d%-6s%-8d%-8d%-8d\t%-8d\n",s.num,s.name,s.age,s.sex,s.Math,s.English,s.Program,s.sum);
         }
         else
-            printf("\n\n\n\n\t\t\t\t\t   Ã»ÓĞÕÒµ½Òª²éÑ¯µÄÑ§ÉúĞÅÏ¢......\n\n");
-        printf("\n\n\t\t\t\t\t\t°´Y¼ÌĞø²éÑ¯£¬°´ÈÎÒâ¼ü·µ»Ø¡£\n");
+            printf("\n\n\n\n\t\t\t\t\t   æ²¡æœ‰æ‰¾åˆ°è¦æŸ¥è¯¢çš„å­¦ç”Ÿä¿¡æ¯......\n\n");
+        printf("\n\n\t\t\t\t\t\tæŒ‰Yç»§ç»­æŸ¥è¯¢ï¼ŒæŒ‰ä»»æ„é”®è¿”å›ã€‚\n");
         n=getch();
     }
     while(n=='Y'||n=='y');
     Quit();
 }
-void Delete_Information()//É¾³ı
+void Delete_Information()//åˆ é™¤
 {
     char n;
     do
@@ -500,15 +500,15 @@ void Delete_Information()//É¾³ı
         system("cls");
         Head();
         char id[9];
-        printf("\t\t\t\t\tÇëÊäÈëÒªÉ¾³ıÑ§ÉúµÄÑ§ºÅ£º");
+        printf("\t\t\t\t\tè¯·è¾“å…¥è¦åˆ é™¤å­¦ç”Ÿçš„å­¦å·ï¼š");
         cin>>id;
         if(Find_Information(id))
         {
-            printf("\n\t\t\t\t\tÇëºË¶ÔÑ§ÉúĞÅÏ¢...\n\n");
-            printf("\t\t\tÑ§ºÅ\t  ĞÕÃû\t   ÄêÁä\t  ĞÔ±ğ\t  ¸ßÊı\t  Ó¢Óï\t  ³ÌĞòÉè¼Æ\t×Ü·Ö\n\n");
+            printf("\n\t\t\t\t\tè¯·æ ¸å¯¹å­¦ç”Ÿä¿¡æ¯...\n\n");
+            printf("\t\t\tå­¦å·\t  å§“å\t   å¹´é¾„\t  æ€§åˆ«\t  é«˜æ•°\t  è‹±è¯­\t  ç¨‹åºè®¾è®¡\tæ€»åˆ†\n\n");
             printf("\t\t\t");
             printf("%-10s%-10s%-8d%-6s%-8d%-8d%-8d\t%-8d\n",s.num,s.name,s.age,s.sex,s.Math,s.English,s.Program,s.sum);
-            printf("\n\t\t\t\t\tÈ·ÈÏÎŞÎóÇë°´YÉ¾³ı£¬ÈçÓĞÎó°´EscÖØĞÂÊäÈë£¡");
+            printf("\n\t\t\t\t\tç¡®è®¤æ— è¯¯è¯·æŒ‰Yåˆ é™¤ï¼Œå¦‚æœ‰è¯¯æŒ‰Escé‡æ–°è¾“å…¥ï¼");
             char ch;
             ch=getch();
             if (ch == 0x1b)
@@ -530,13 +530,13 @@ void Delete_Information()//É¾³ı
                 out.close();
                 remove(oldFileName);
                 rename(newFileName,oldFileName);
-                printf("\n\n\t\t\t\t\tÉ¾³ı³É¹¦£¡");
+                printf("\n\n\t\t\t\t\tåˆ é™¤æˆåŠŸï¼");
                 stu_cnt--;
             }
         }
         else
         {
-            cout<<"\n\t\t\t\t\tÑ§Éú²»´æÔÚ£¡°´YÖØĞÂÊäÈë£¬°´ÈÎÒâ¼ü·µ»Ø¡£";
+            cout<<"\n\t\t\t\t\tå­¦ç”Ÿä¸å­˜åœ¨ï¼æŒ‰Yé‡æ–°è¾“å…¥ï¼ŒæŒ‰ä»»æ„é”®è¿”å›ã€‚";
             char m;
             m=getch();
             if(m=='Y'||m=='y')
@@ -545,21 +545,21 @@ void Delete_Information()//É¾³ı
                 Quit();
 
         }
-        printf("\n\n\t\t\t\t\t°´Y¼ÌĞøÉ¾³ı£¬°´ÈÎÒâ¼ü·µ»Ø¡£");
+        printf("\n\n\t\t\t\t\tæŒ‰Yç»§ç»­åˆ é™¤ï¼ŒæŒ‰ä»»æ„é”®è¿”å›ã€‚");
         n=getch();
     }
     while(n=='Y'||n=='y');
     Quit();
 }
 
-void Change_Information()//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
+void Change_Information()//ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
 {
     char n;
     do
     {
         system("cls");
         Head();
-        printf("\t\t\t\t\tÇëÊäÈëÒªĞŞ¸ÄÑ§ÉúµÄÑ§ºÅ£º");
+        printf("\t\t\t\t\tè¯·è¾“å…¥è¦ä¿®æ”¹å­¦ç”Ÿçš„å­¦å·ï¼š");
         char id[9];
         cin>>id;
         if(Find_Information(id))
@@ -574,11 +574,11 @@ void Change_Information()//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
                 }
                 if(strcmp(id,s.num)==0)
                 {
-                    printf("\n\t\t\t\t\tÇëÒÀ´ÎÊäÈëÏÂÁĞĞŞ¸ÄµÄÏîÄ¿£¬²»ĞèÒªµÄÇëÔ­ÑùÊäÈë\n");
+                    printf("\n\t\t\t\t\tè¯·ä¾æ¬¡è¾“å…¥ä¸‹åˆ—ä¿®æ”¹çš„é¡¹ç›®ï¼Œä¸éœ€è¦çš„è¯·åŸæ ·è¾“å…¥\n");
                     isChangeInformation=true;
                     scanfInformation();
                     out.write((char*)&s, sizeof(s));
-                    printf("\n\n\t\t\t\t\t\tĞŞ¸Ä³É¹¦£¡");
+                    printf("\n\n\t\t\t\t\t\tä¿®æ”¹æˆåŠŸï¼");
                 }
             }
             in.close();
@@ -588,7 +588,7 @@ void Change_Information()//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
         }
         else
         {
-            cout<<"\n\t\t\t\t\tÑ§Éú²»´æÔÚ£¡°´YÖØĞÂÊäÈë£¬°´ÈÎÒâ¼ü·µ»Ø¡£";
+            cout<<"\n\t\t\t\t\tå­¦ç”Ÿä¸å­˜åœ¨ï¼æŒ‰Yé‡æ–°è¾“å…¥ï¼ŒæŒ‰ä»»æ„é”®è¿”å›ã€‚";
             char m;
             m=getch();
             if(m=='Y'||m=='y')
@@ -596,20 +596,20 @@ void Change_Information()//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
             else
                 Quit();
         }
-        printf("\n\n\t\t\t\t\tÊÇ·ñ¼ÌĞøĞŞ¸Ä£¿°´Y¼ÌĞø£¬°´ÈÎÒâ¼ü·µ»Ø¡£");
+        printf("\n\n\t\t\t\t\tæ˜¯å¦ç»§ç»­ä¿®æ”¹ï¼ŸæŒ‰Yç»§ç»­ï¼ŒæŒ‰ä»»æ„é”®è¿”å›ã€‚");
         n=getch();
     }
     while(n=='Y'||n=='y');
     Quit();
 }
 
-//×Ô¶¨ÒåÅÅĞò¹æÔò
+//è‡ªå®šä¹‰æ’åºè§„åˆ™
 bool StuCmp(const Student& s1,const Student& s2)
 {
     return s1.sum>s2.sum;
 }
 
-//ÅÅĞòÑ§ÉúĞÅÏ¢
+//æ’åºå­¦ç”Ÿä¿¡æ¯
 void Sord_Information()
 {
     list<Student>ss;
@@ -624,20 +624,20 @@ void Sord_Information()
     Quit();
 }
 
-//ÏÔÊ¾ÅÅĞòºóµÄÑ§ÉúĞÅÏ¢
+//æ˜¾ç¤ºæ’åºåçš„å­¦ç”Ÿä¿¡æ¯
 void Show_Sorted(list<Student>& ss)
 {
     int i=1;
     Head();
     if(stu_cnt==0)
     {
-        printf("\t\t\t**********************±¾Ãûµ¥¹²ÓĞ %d ÃûÑ§Éú*********************\n\n\n", stu_cnt);
-        printf("\t\t\tÔİÎŞÑ§ÉúĞÅÏ¢£¡\n");
+        printf("\t\t\t**********************æœ¬åå•å…±æœ‰ %d åå­¦ç”Ÿ*********************\n\n\n", stu_cnt);
+        printf("\t\t\tæš‚æ— å­¦ç”Ÿä¿¡æ¯ï¼\n");
     }
     else
     {
-        printf("\t\t\t**********************±¾Ãûµ¥¹²ÓĞ %d ÃûÑ§Éú*********************\n\n\n", stu_cnt);
-        printf("\t\t\tĞòºÅ\tÑ§ºÅ\t  ĞÕÃû\t   ÄêÁä\t  ĞÔ±ğ\t  ¸ßÊı\t  Ó¢Óï\t  ³ÌĞòÉè¼Æ\t×Ü·Ö\n\n");
+        printf("\t\t\t**********************æœ¬åå•å…±æœ‰ %d åå­¦ç”Ÿ*********************\n\n\n", stu_cnt);
+        printf("\t\t\tåºå·\tå­¦å·\t  å§“å\t   å¹´é¾„\t  æ€§åˆ«\t  é«˜æ•°\t  è‹±è¯­\t  ç¨‹åºè®¾è®¡\tæ€»åˆ†\n\n");
         for(auto it=ss.begin(); it!=ss.end(); it++)
         {
             printf("\t\t\t%-8d%-10s%-10s%-8d%-6s%-8d%-8d%-8d\t%-8d\n",i,it->num,it->name,it->age,it->sex,it->Math,it->English,it->Program,it->sum);
@@ -645,7 +645,7 @@ void Show_Sorted(list<Student>& ss)
         }
     }
 }
-//²Ëµ¥Ñ¡Ôñ
+//èœå•é€‰æ‹©
 int MenuSelect()
 {
     char c;
@@ -653,62 +653,62 @@ int MenuSelect()
     {
         system("cls");
         Head();
-        printf("\t\t\t\t   ¨q¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¡ğ¡ñ¡ğ¡ñ¨T¨T¨T¨r\n");
-        printf("\t\t\t\t   ©¦              Ñ§ÉúĞÅÏ¢¹ÜÀíÏµÍ³              ©¦\n");
-        printf("\t\t\t\t   ¨t¨T¨T¨T¡ğ¡ñ¡ğ¡ñ¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨s\n");
-        printf("\t\t\t\t   ©°©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤-©´\n");
-        printf("\t\t\t\t   ©¦                                            ©¦\n");
-        printf("\t\t\t\t   ©¦ 1. ĞŞ¸ÄÃÜÂë                    2. ÏÔÊ¾Êı¾İ ©¦\n");
-        printf("\t\t\t\t   ©¦                                            ©¦\n");
-        printf("\t\t\t\t   ©¦ 3. Ìí¼ÓÊı¾İ                    4. Êı¾İÅÅÃû ©¦\n");
-        printf("\t\t\t\t   ©¦                                            ©¦\n");
-        printf("\t\t\t\t   ©¦ 5. ĞŞ¸ÄÊı¾İ                    6. É¾³ıÊı¾İ ©¦\n");
-        printf("\t\t\t\t   ©¦                                            ©¦\n");
-        printf("\t\t\t\t   ©¦ 7. ²éÑ¯Êı¾İ                    0. ÍË³ö³ÌĞò ©¦\n");
-        printf("\t\t\t\t   ©¦                                            ©¦\n");
-        printf("\t\t\t\t   ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼\n");
-        printf("\t\t\t\t\t\t  ÇëÄúÑ¡Ôñ(0-7):");
+        printf("\t\t\t\t   â•­â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â—‹â—â—‹â—â•â•â•â•®\n");
+        printf("\t\t\t\t   â”‚              å­¦ç”Ÿä¿¡æ¯ç®¡ç†ç³»ç»Ÿ              â”‚\n");
+        printf("\t\t\t\t   â•°â•â•â•â—‹â—â—‹â—â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•¯\n");
+        printf("\t\t\t\t   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€-â”\n");
+        printf("\t\t\t\t   â”‚                                            â”‚\n");
+        printf("\t\t\t\t   â”‚ 1. ä¿®æ”¹å¯†ç                     2. æ˜¾ç¤ºæ•°æ® â”‚\n");
+        printf("\t\t\t\t   â”‚                                            â”‚\n");
+        printf("\t\t\t\t   â”‚ 3. æ·»åŠ æ•°æ®                    4. æ•°æ®æ’å â”‚\n");
+        printf("\t\t\t\t   â”‚                                            â”‚\n");
+        printf("\t\t\t\t   â”‚ 5. ä¿®æ”¹æ•°æ®                    6. åˆ é™¤æ•°æ® â”‚\n");
+        printf("\t\t\t\t   â”‚                                            â”‚\n");
+        printf("\t\t\t\t   â”‚ 7. æŸ¥è¯¢æ•°æ®                    0. é€€å‡ºç¨‹åº â”‚\n");
+        printf("\t\t\t\t   â”‚                                            â”‚\n");
+        printf("\t\t\t\t   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜\n");
+        printf("\t\t\t\t\t\t  è¯·æ‚¨é€‰æ‹©(0-7):");
         c = getche();
     }
     while (c < '0' || c > '7');
     return c - '0';
 }
 
-//Ö÷²Ëµ¥½çÃæ
+//ä¸»èœå•ç•Œé¢
 void MainMenu()
 {
-    if (isChangePassword||isLogin())//µÇÂ¼³É¹¦»òÍê³ÉĞŞ¸ÄÃÜÂëºó
+    if (isChangePassword||isLogin())//ç™»å½•æˆåŠŸæˆ–å®Œæˆä¿®æ”¹å¯†ç å
     {
-        switch (MenuSelect())	//²Ëµ¥Ñ¡Ôñ
+        switch (MenuSelect())	//èœå•é€‰æ‹©
         {
-        case Exit:		//ÍË³ö³ÌĞò
+        case Exit:		//é€€å‡ºç¨‹åº
             _Exit(0);
             break;
-        case ChangePassword:	//ĞŞ¸ÄÃÜÂë
+        case ChangePassword:	//ä¿®æ”¹å¯†ç 
             system("cls");
             changePassword();
             break;
-        case Show:		//ÏÔÊ¾ËùÓĞÑ§ÉúĞÅÏ¢
+        case Show:		//æ˜¾ç¤ºæ‰€æœ‰å­¦ç”Ÿä¿¡æ¯
             system("cls");
             Show_Information();
             break;
-        case Add:		//Ìí¼ÓÑ§ÉúĞÅÏ¢
+        case Add:		//æ·»åŠ å­¦ç”Ÿä¿¡æ¯
             system("cls");
-            Add_Information();//ÊäÈëÑ§ÉúĞÅÏ¢
+            Add_Information();//è¾“å…¥å­¦ç”Ÿä¿¡æ¯
             break;
-        case Sort:		//¶ÔÑ§ÉúĞÅÏ¢×Ü·Ö½øĞĞÅÅĞò
+        case Sort:		//å¯¹å­¦ç”Ÿä¿¡æ¯æ€»åˆ†è¿›è¡Œæ’åº
             system("cls");
             Sord_Information();
             break;
-        case Change:	//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
+        case Change:	//ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
             system("cls");
             Change_Information();
             break;
-        case Delete:	//É¾³ıÑ§ÉúĞÅÏ¢
+        case Delete:	//åˆ é™¤å­¦ç”Ÿä¿¡æ¯
             system("cls");
             Delete_Information();
             break;
-        case Search:	//²éÑ¯Ñ§ÉúĞÅÏ¢
+        case Search:	//æŸ¥è¯¢å­¦ç”Ÿä¿¡æ¯
             system("cls");
             Search_Information();
             Quit();
